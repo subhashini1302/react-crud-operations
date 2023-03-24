@@ -82,7 +82,7 @@ function UsersList() {
             <h2 className="heading-text">{"List Of Users"}</h2>
           </Grid>
           <Grid xs={6}>
-            <a class="button" onClick={handleAdd}>
+            <a href="/#" class="button" onClick={handleAdd}>
               {"Add Users"}
             </a>
           </Grid>
@@ -91,7 +91,13 @@ function UsersList() {
           return (
             <Grid container xs={12} className="list-grid">
               <Grid className="list-grid1">
-                <img src={item?.avatar} alt="image not found" />
+                <input
+                  type="image"
+                  img
+                  src={item?.avatar}
+                  alt="image not found"
+                />
+
                 <Grid xs={4} className="text-grid">
                   <h5 className="text1">
                     {"Name : "}

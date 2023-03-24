@@ -132,7 +132,13 @@ function Form(props) {
           </Grid>
         ) : (
           <Grid item xs={12} md={10}>
-            <img src={values?.profile_pic} alt="image not found" />
+            {/* <img src={values?.profile_pic} alt="image not found" /> */}
+            <input
+              type="image"
+              img
+              src={values?.profile_pic}
+              alt="image not found"
+            />
           </Grid>
         )}
       </Grid>
