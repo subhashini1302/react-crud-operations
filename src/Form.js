@@ -98,7 +98,6 @@ function Form(props) {
         <Grid item xs={12} lg={10}>
           {renderLabel("First Name")}
           <TextField
-            // sx={textFieldProps}
             variant="outlined"
             onChange={handleChange("first_name")}
             placeholder={"First Name"}
@@ -132,7 +131,6 @@ function Form(props) {
           </Grid>
         ) : (
           <Grid item xs={12} md={10}>
-            {/* <img src={values?.profile_pic} alt="image not found" /> */}
             <input
               type="image"
               img
@@ -190,9 +188,6 @@ function Form(props) {
           <Grid container xs={12}>
             <Grid item xs={6} />
             <Grid item xs={3}>
-              {/* <Button variant="contained" onClick={close}>
-                {"Cancel"}
-              </Button> */}
               <input
                 class="button-clear"
                 type="submit"
@@ -200,17 +195,25 @@ function Form(props) {
                 onClick={close}
               />
             </Grid>
-            <Grid item xs={3}>
-              {/* <Button variant="contained" onClick={handleSubmit}>
-                {"Save"}
-              </Button> */}
-              <input
-                class="button-save"
-                type="submit"
-                value="Save"
-                onClick={handleSubmit}
-              />
-            </Grid>
+            {props?.isAdd ? (
+              <Grid item xs={3}>
+                <input
+                  class="button-save"
+                  type="submit"
+                  value="Create"
+                  onClick={handleSubmit}
+                />
+              </Grid>
+            ) : (
+              <Grid item xs={3}>
+                <input
+                  class="button-save"
+                  type="submit"
+                  value="Update"
+                  onClick={handleSubmit}
+                />
+              </Grid>
+            )}
           </Grid>
         </DialogActions>
       </Dialog>
