@@ -21,52 +21,69 @@ function Form(props) {
     profile_pic: props?.userDetail?.avatar || "",
   });
 
+  const isEmailValid = (email) => {
+    const pattern =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return pattern.test(email.toLowerCase());
+  };
+
   const handleSubmit = () => {
-    const data = {
-      first_name: values?.first_name,
-      last_name: values?.last_name,
-      email: values?.email,
-    };
-    if (props?.isAdd) {
-      fetch("https://reqres.in/api/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((responseData) => {
-          console.log(responseData);
-          if (responseData) {
-            alert("User Created");
-            close();
-            props?.getUsersList();
-          } else {
-            alert("Please fill the form correctly");
-          }
-        });
+    if (!values?.first_name) {
+      alert("Please enter First Name");
+    } else if (!values?.last_name) {
+      alert("Please enter Last Name");
+    } else if (!values?.email) {
+      alert("Please enter Email");
+    } else if (values?.email && !isEmailValid(values?.email)) {
+      alert("Please enter valid email id");
     } else {
-      fetch(`https://reqres.in/api/users/${props?.userDetail?.id}`, {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((responseData) => {
-          console.log(responseData);
-          if (responseData) {
-            alert("User Updated");
-            close();
-            props?.getUsersList();
-          } else {
-            alert("Please fill the form correctly");
-          }
-        });
+      const data = {
+        first_name: values?.first_name,
+        last_name: values?.last_name,
+        email: values?.email,
+      };
+
+      if (props?.isAdd) {
+        fetch("https://reqres.in/api/users", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log(responseData);
+            if (responseData) {
+              alert("User Created");
+              close();
+              props?.getUsersList();
+            } else {
+              alert("Please fill the form correctly");
+            }
+          });
+      } else {
+        fetch(`https://reqres.in/api/users/${props?.userDetail?.id}`, {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log(responseData);
+            if (responseData) {
+              alert("User Updated");
+              close();
+              props?.getUsersList();
+            } else {
+              alert("Please fill the form correctly");
+            }
+          });
+      }
     }
   };
 
